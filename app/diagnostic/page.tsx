@@ -78,7 +78,7 @@ export default function DiagnosticPage() {
 
   const submitAnswer = async (answer: 'yes' | 'no') => {
     try {
-      setMessages(prev => [...prev, { type: 'user', content: answer === 'yes' ? 'Sí' : 'No' }]);
+      setMessages(prev => [...prev, { type: 'user', content: answer === 'yes' ? 'Yes' : 'No' }]);
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/diagnostic/${sessionId}/answer`,
@@ -153,7 +153,7 @@ export default function DiagnosticPage() {
             <option value="" disabled>Select diagnostic type</option>
             <option value="brake">Brakes</option>
             <option value="start">Starting</option>
-            <option value="sounds">Strange Sounds</option>
+            <option value="sound">Strange Sounds</option>
           </select>
           <button
             onClick={startDiagnostic}
