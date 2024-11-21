@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ArrowRightIcon, UserPlusIcon, MessageCircleIcon, HistoryIcon } from 'lucide-react';
 
 export default function LandingPage() {
   const router = useRouter();
@@ -23,7 +22,12 @@ export default function LandingPage() {
             onClick={() => router.push('/login')}
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition flex items-center space-x-2"
           >
-            <UserPlusIcon className="w-5 h-5" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="8.5" cy="7" r="4"/>
+              <line x1="20" y1="8" x2="20" y2="14"/>
+              <line x1="17" y1="11" x2="23" y2="11"/>
+            </svg>
             <span>Login / Sign Up</span>
           </button>
         </nav>
@@ -44,15 +48,25 @@ export default function LandingPage() {
           
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <UserPlusIcon className="w-6 h-6 text-blue-600" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="8.5" cy="7" r="4"/>
+                <line x1="20" y1="8" x2="20" y2="14"/>
+                <line x1="17" y1="11" x2="23" y2="11"/>
+              </svg>
               <p className="text-blue-800">Create your free account</p>
             </div>
             <div className="flex items-center space-x-3">
-              <MessageCircleIcon className="w-6 h-6 text-blue-600" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+              </svg>
               <p className="text-blue-800">Engage in diagnostic conversations</p>
             </div>
             <div className="flex items-center space-x-3">
-              <HistoryIcon className="w-6 h-6 text-blue-600" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
               <p className="text-blue-800">Track and review your diagnostic history</p>
             </div>
           </div>
@@ -63,7 +77,10 @@ export default function LandingPage() {
               className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center space-x-2 shadow-md"
             >
               <span>Get Started</span>
-              <ArrowRightIcon className="w-5 h-5" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
             </button>
             <button 
               onClick={() => router.push('/history')}
