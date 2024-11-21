@@ -76,6 +76,11 @@ export default function DiagnosticPage() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.clear
+    router.push("/login")
+  }
+
   const submitAnswer = async (answer: 'yes' | 'no') => {
     try {
       setMessages(prev => [...prev, { type: 'user', content: answer === 'yes' ? 'Yes' : 'No' }]);
@@ -120,55 +125,98 @@ export default function DiagnosticPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
         <div className="text-red-500">{error}</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex flex-col">
       {/* Header */}
-      <div className="bg-white shadow">
-        <div className="max-w-4xl mx-auto px-4 py-6 flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-gray-900">Car Diagnostic System</h2>
-          <button
-            onClick={() => router.push('/history')}
-            className="py-2 px-4 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700"
-          >
-            See History of Conversations
-          </button>
+      <header className="px-6 py-4 flex justify-between items-center">
+        <div className="flex items-center space-x-3">
+          <img 
+            src="https://res.cloudinary.com/dxhi8xsyb/image/upload/v1732209286/pngwing.com_1_fvashd.png" 
+            alt="Car Expert System Logo" 
+            className="w-12 h-12 rounded-full"
+          />
+          <h1 className="text-2xl font-bold text-blue-900">Car Expert System</h1>
         </div>
-      </div>
+        <nav>
+          <button 
+            onClick={() => router.push('/history')}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition flex items-center space-x-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+            <span>View History</span>
+          </button>
+        </nav>
+        <nav>
+        <button 
+            onClick={handleLogout}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition flex items-center space-x-2"
+          >
+            <span>Log Out</span>
+          </button>
+        </nav>
+        
+      </header>
 
       {/* Diagnostic Type Selection */}
       {!sessionId && (
-        <div className="flex-1 max-w-4xl w-full mx-auto p-4 flex flex-col items-center justify-center space-y-6">
-          <h3 className="text-xl text-black font-semibold">Select the type of problem:</h3>
-          <select
-            value={diagnosticType || ''}
-            onChange={(e) => setDiagnosticType(e.target.value)}
-            className="border rounded-md p-2 w-1/2 text-gray-900"
-          >
-            <option value="" disabled>Select diagnostic type</option>
-            <option value="brake">Brakes</option>
-            <option value="start">Starting</option>
-            <option value="sound">Strange Sounds</option>
-          </select>
-          <button
-            onClick={startDiagnostic}
-            className="py-3 px-6 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700"
-            disabled={!diagnosticType}
-          >
-            Start Diagnostic
-          </button>
-        </div>
+        <main className="flex-1 container mx-auto px-6 py-12 grid md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <h2 className="text-4xl font-extrabold text-blue-900">
+              Select Your Diagnostic Type
+            </h2>
+            <p className="text-xl text-blue-800 leading-relaxed">
+              Choose the type of problem you're experiencing with your vehicle. 
+              Our intelligent system will guide you through a precise diagnostic process.
+            </p>
+            
+            <div className="space-y-4">
+              <select
+                value={diagnosticType || ''}
+                onChange={(e) => setDiagnosticType(e.target.value)}
+                className="w-full border-2 border-blue-600 rounded-lg p-3 text-blue-900"
+              >
+                <option value="" disabled>Select diagnostic type</option>
+                <option value="brake">Brakes</option>
+                <option value="start">Starting</option>
+                <option value="sound">Strange Sounds</option>
+              </select>
+              
+              <button
+                onClick={startDiagnostic}
+                className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center justify-center space-x-2 shadow-md"
+                disabled={!diagnosticType}
+              >
+                <span>Start Diagnostic</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div className="hidden md:flex justify-center">
+            <img 
+              src="/api/placeholder/500/400" 
+              alt="Car Diagnostic Illustration" 
+              className="rounded-xl shadow-2xl"
+            />
+          </div>
+        </main>
       )}
 
       {/* Chat Container */}
       {sessionId && (
-        <div className="flex-1 max-w-4xl w-full mx-auto p-4 flex flex-col">
-          <div className="flex-1 bg-white rounded-lg shadow-lg p-4 mb-4 overflow-y-auto">
+        <main className="flex-1 container mx-auto px-6 py-12 flex flex-col">
+          <div className="flex-1 bg-white rounded-xl shadow-lg p-6 mb-6 overflow-y-auto">
             <div className="space-y-4">
               {messages.map((message, index) => (
                 <div
@@ -179,7 +227,7 @@ export default function DiagnosticPage() {
                     className={`max-w-[75%] rounded-lg px-4 py-2 ${
                       message.type === 'user'
                         ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-900'
+                        : 'bg-blue-50 text-blue-900'
                     }`}
                   >
                     <pre className="whitespace-pre-wrap font-sans">{message.content}</pre>
@@ -191,17 +239,17 @@ export default function DiagnosticPage() {
           </div>
 
           {!diagnostic && currentQuestion && (
-            <div className="bg-white rounded-lg shadow-lg p-4">
+            <div className="bg-white rounded-xl shadow-lg p-6">
               <div className="flex space-x-4">
                 <button
                   onClick={() => submitAnswer('yes')}
-                  className="flex-1 py-3 px-4 bg-green-600 text-white rounded-md shadow-md hover:bg-green-700"
+                  className="flex-1 py-3 px-4 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition"
                 >
                   Yes
                 </button>
                 <button
                   onClick={() => submitAnswer('no')}
-                  className="flex-1 py-3 px-4 bg-red-600 text-white rounded-md shadow-md hover:bg-red-700"
+                  className="flex-1 py-3 px-4 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition"
                 >
                   No
                 </button>
@@ -210,20 +258,35 @@ export default function DiagnosticPage() {
           )}
 
           {diagnostic && (
-            <div className="bg-white rounded-lg shadow-lg p-4">
+            <div className="bg-white rounded-xl shadow-lg p-6">
               <button
                 onClick={() => {
                   setDiagnosticType(null);
                   setSessionId(null);
                 }}
-                className="w-full py-3 px-4 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700"
+                className="w-full py-3 px-4 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition flex items-center justify-center space-x-2"
               >
-                Start New Diagnostic
+                <span>Start New Diagnostic</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
               </button>
             </div>
           )}
-        </div>
+        </main>
       )}
+
+      {/* Footer */}
+      <footer className="bg-blue-900 text-white py-6">
+        <div className="container mx-auto px-6 flex justify-between items-center">
+          <p>&copy; 2024 Car Expert System. All rights reserved.</p>
+          <div className="space-x-4">
+            <a href="#" className="hover:underline">Privacy Policy</a>
+            <a href="#" className="hover:underline">Terms of Service</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

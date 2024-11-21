@@ -11,7 +11,7 @@ export default function LandingPage() {
       <header className="px-6 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-3">
           <img 
-            src="/api/placeholder/50/50" 
+            src="https://res.cloudinary.com/dxhi8xsyb/image/upload/v1732209286/pngwing.com_1_fvashd.png" 
             alt="Car Expert System Logo" 
             className="w-12 h-12 rounded-full"
           />
