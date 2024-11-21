@@ -115,9 +115,9 @@ export default function HistoryPage() {
                               className="grid grid-cols-[auto,1fr] gap-4 text-sm"
                             >
                               <span className="font-medium text-gray-700">P:</span>
-                              <span>{item.question}</span>
+                              <span className="text-gray-700">{item.question}</span>
                               <span className="font-medium text-gray-700">R:</span>
-                              <span className="capitalize">{item.answer}</span>
+                              <span className="capitalize text-gray-700">{item.answer}</span>
                             </div>
                           ))}
                         </div>
